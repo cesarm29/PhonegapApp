@@ -1,0 +1,158 @@
+<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="css/ionic.css">
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function()
+ {
+ $("#insert").click(function(){
+ var nombres=$("#nombres").val();
+ var apellidos=$("#apellidos").val();
+ var documentoidentidad=$("#documentoidentidad").val();
+ var dirp=$("#dir").val();
+ var telfijo=$("#telfijo").val();
+ var telcel=$("#telcel").val();
+ var correop=$("#correo").val();
+ var ciudad=$("#ciudad").val();
+ var contrasena=$("#contrasena").val();
+//datos por url
+ var dataString="nombres="+nombres+"&apellidos="+apellidos+"&documentoidentidad="+documentoidentidad+"&dirp="+dirp+"&telfijo="+telfijo+"&telcel="+telcel+"&correop="+correop+"&ciudad="+ciudad+"&contrasena="+contrasena+"&insert=";
+ if($.trim(nombres).length>0 & $.trim(apellidos).length>0 & $.trim(documentoidentidad).length>0 & $.trim(dirp).length>0 & $.trim(telfijo).length>0 & $.trim(telcel).length>0 & $.trim(correop).length>0 & $.trim(ciudad).length>0 & $.trim(contrasena).length>0)
+ {
+ $.ajax({
+ type: "POST",
+ url:"http://192.168.1.54/phonegap/Registroinsert.php",
+ data: dataString,
+ crossDomain: true,
+ cache: false,
+ beforeSend: function(){ $("#insert").val('Conectando...');},
+ success: function(data){
+ if(data=="success")
+ {
+ alert("Registro de cliente realizado");
+
+ $("#insert").val('submit');
+ // Redireccion Exitosa
+ window.location.replace("index.html");
+ }
+ else if(data=="error")
+ {
+ alert("error");
+ }
+ }
+ });
+ }return false;
+ });
+ });
+ </script>
+<!-- Fix for scrolling on iOS prior to iOS 6 -->
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+ 
+        div#container {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+ 
+        div[data-role="header"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+ 
+        div[data-role="content"] {
+            position: absolute;
+            top: 41px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+ 
+        .scrollable {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+ 
+            /* iOS specific fix, don't use it on Android devices */
+        .scrollable > * {
+            -webkit-transform: translateZ(0px);
+        }
+
+        .ui-btn-text{
+        	        margin: 0;
+				    padding: 0;
+				    border: 0;
+				    font: inherit;
+				    font-size: 100%;
+				    color: white;
+        }
+    </style>
+ 
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).one('mobileinit', function () {
+ 
+            // Setting #container div as a jqm pageContainer
+            $.mobile.pageContainer = $('#container');
+ 
+            // Setting default page transition to slide
+            $.mobile.defaultPageTransition = 'slide';
+ 
+        });
+    </script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+</head>
+<body>
+<div id="container">
+   
+ <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+ <h1 class="title">Registro Clientes</h1>
+ <a class="button button-clear" href="javascript:history.go(-1)">Volver al Login</a>
+ </div><br/><br/>
+
+
+
+<div data-role="content" class="scrollable">
+
+
+<div class="list">
+
+ <label class="item item-input">
+ <input type="text" id="nombres" placeholder="Nombres"  required="true" />
+ </label>
+ <label class="item item-input">
+ <input type="text" id="apellidos" placeholder="Apellidos" required="true"/>
+ </label>
+ <label class="item item-input">
+ <input type="number" id="documentoidentidad" placeholder="Numero de Documento" required="true"/>
+ </label>
+ <label class="item item-input">
+ <input type="text" id="dir" placeholder="Direccion" required="true"/>
+ </label>
+ <label class="item item-input">
+ <input type="text" id="telfijo" placeholder="Telefono Fijo" required="true"/>
+ </label>
+ <label class="item item-input">
+ <input type="text" id="telcel" placeholder="Telefono Celular" required="true"/>
+ </label>
+ <label class="item item-input">
+ <input type="text" id="correo" placeholder="Correo Electronico" required="true"/>
+ </label>
+ <label class="item item-input">
+ <input type="text" id="ciudad" placeholder="Ciudad" required="true"/>
+ </label>
+ <label class="item item-input">
+ <input type="text" id="contrasena" placeholder="Contraseña" required="true"/>
+ </label>
+ <button type="button" id="insert" class="button button-full button-positive" value="Registrarse" >Registrarse</button>
+ </div>
+ </div>
+ </div>
+</body>
+</html>

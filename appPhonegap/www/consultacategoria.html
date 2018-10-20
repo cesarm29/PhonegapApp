@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="css/style-2.css" />
+<script type="text/javascript" src="//use.typekit.net/vue1oix.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+
+<title>Consulta Categorias</title>
+
+<script src="js/jquery.js"></script>
+<script src="js/hammer.js"></script>
+
+<script>
+
+$(document).ready(function(e) {
+	
+	var startX, curX, startY, curY; // Variables
+	var newXScroll, newYScroll, genXScroll; // More Variables!
+	
+	// Change the height of the sidebar, as well as a few things to do with the main content area, so the user
+	// can actually scroll in the content area.
+	function sideBarHeight() { 
+	
+		var docHeight = $(document).height();
+		var winHeight = $(window).height();
+		
+		$('.slide-in').height(winHeight);
+		$('#main-container').height(winHeight);
+		$('#sub-container').height($('#sub-container').height());
+	} 
+	
+	sideBarHeight();
+	
+	var outIn = 'in';
+	
+	Hammer(document.getElementById('main-container')).on('swiperight', function(e) {
+			$('.slide-in').toggleClass('on');		
+			$('#main-container').toggleClass('on');
+			outIn = 'out';
+			
+	});
+	
+	Hammer(document.getElementById('main-container')).on('swipeleft', function(e) {
+			$('.slide-in').toggleClass('on');	
+			$('#main-container').toggleClass('on');
+			outIn = 'in';
+	});
+	
+	
+	function runAnimation() {
+	
+		if(outIn == 'out') {
+			
+			$('.slide-in').toggleClass('on');
+			$('#main-container').toggleClass('on');	
+			outIn = 'in';
+			
+		} else if(outIn == 'in') {
+		
+			$('.slide-in').toggleClass('on');	
+			$('#main-container').toggleClass('on');	
+			outIn = 'out';
+			
+		}
+	
+	}
+	
+	$('.menu-icon')[0].addEventListener('touchend', function(e) {
+		$('.slide-in').toggleClass('on');		
+		$('#main-container').toggleClass('on');
+	});
+	
+	$('.menu-icon').click(function() {
+		$('.slide-in').toggleClass('on');		
+		$('#main-container').toggleClass('on');
+	});
+	
+	
+
+});
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function()
+ {
+
+//obteniendo usuario
+var materiacons = localStorage.getItem("materiaconsultada");
+//pasando parametro a label
+$("#usuarioensession").text(materiacons);  	
+
+ var string = "http://192.168.1.54/phonegap/jsonconsultacategorias.php?usuario=" 
+ var url= string+materiacons;
+
+ $.getJSON(url,function(result){
+ console.log(result);
+ $.each(result, function(i, field){
+ var PrimerNombre=field.PrimerNombre;
+ var PrimerApellido=field.PrimerApellido;
+ var Direccion=field.Direccion;
+ var fotoImagen=field.fotoImagen;
+ var Ciudad=field.Ciudad;
+ var Tema=field.NomTema;
+ var Disponibilidad=field.Disponible;
+ if(Disponibilidad == 1){
+ 	var Disp = "Disponible";
+
+ }else{
+    var Disp = "No disponible";
+ }
+
+ $("#listview").append(" <a class='item item-thumbnail-left' href='consultacategoria.html'><img style='border-radius: 150px;' src='"+fotoImagen+"' width='100px' height='100px' ></br><h2>"+ PrimerNombre + " "+ PrimerApellido +  " </h2><h2 >Direccion "+ Direccion + " </h2><p>Ciudad "+ Ciudad +"</p><p>"+ Disp +"</p></a>");
+ });
+ });
+ });
+ </script>
+
+ <script type="text/javascript">
+ $(document).ready(function()
+ {
+
+//obtener parametros de url
+	var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+    }
+   };
+    //obteniendo usuario
+    var usr = localStorage.getItem("usingreso");
+
+    //pasando parametro a label
+    $("#usuarioensession").text(usr); 
+ 
+
+
+var string = "http://192.168.1.54/phonegap/jsonclientes.php?usuario=" 
+
+
+ var url= string+usr;
+ $.getJSON(url,function(result){
+ console.log(result);
+ $.each(result, function(i, field){
+ var PrimerNombre=field.PrimerNombre;
+ var PrimerApellido=field.PrimerApellido;
+ var Direccion=field.Direccion;
+ var fotoImagen=field.fotoImagen;
+ var Ciudad=field.Ciudad;
+
+ $("#view").append(" <h2 style='color: #c4d6e0;padding-left: 50px;'> "+ PrimerNombre + " "+ PrimerApellido + " </h2><h2 style='color: #c4d6e0;padding-left: 50px;'>Direccion "+ Direccion + " </h2><p style='color: #c4d6e0;padding-left: 50px;'>Ciudad "+ Ciudad +"</p>");
+ });
+ });
+ });
+ </script>
+
+
+
+
+<style type="text/css">
+	.circular {
+	width: 150px;
+	height: 150px;
+	 margin: 0 auto;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	background: url(img/facebook350.jpg);
+	 background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;              /* optional, center the image */
+	}
+
+	.positive {
+    border-color: transparent;
+    background-color: #33cd5f;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    }
+    .positive1 {
+    border-color: transparent;
+    background-color: #387ef5;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    }
+    .positive2 {
+    border-color: transparent;
+    background-color: #33cd5f;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    }
+    .positive3 {
+    border-color: transparent;
+    background-color: #387ef5;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    }
+
+    .item-thumbnail-left, .item-thumbnail-left .item-content {
+    padding-top: 8px;
+    padding-left: 106px;
+    min-height: 100px;
+}
+.item h2 {
+    margin: 0 0 2px 0;
+    font-size: 16px;
+    font-weight: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+a.item {
+    color: inherit;
+    text-decoration: none;
+}
+
+.item {
+    border-color: #ddd;
+    background-color: #fff;
+    color: #444;
+    position: relative;
+    z-index: 2;
+    display: block;
+    margin: -1px;
+    padding: 16px;
+    border-width: 1px;
+    border-style: solid;
+    font-size: 16px;
+}
+
+ul{
+	padding-right: 40px;
+}
+
+
+/* Estrellas de valoración
+	----------------------------------------------- */
+	.val-fieldset {
+	width:100px;
+	border:none;
+	font-weight:bold;
+	font-size:12px;
+	}
+	.valoracion {
+	width: 100px;
+	height: 21px;
+	display: block;
+	background:url(http://lh5.googleusercontent.com/-Sp-iHFztZdc/UVD89O9oM1I/AAAAAAAAEU0/Xh-FBDaWyJY/s000/estrellas.png) 0 0 no-repeat;
+	}
+	.val-0 {background-position: -100px -0;}
+	.val-5 {background-position: -81px -21px;}
+	.val-10 {background-position: -81px 0;}
+	.val-15 {background-position: -61px -21px;}
+	.val-20 {background-position: -60px 0;}
+	.val-25 {background-position: -40px -21px;}
+	.val-30 {background-position: -40px 0;}
+	.val-35 {background-position: -21px -21px;}
+	.val-40 {background-position: -21px 0;} 
+	.val-45 {background-position: 0 -21px;}
+	.val-50 {background-position: 0 0;}
+
+</style>
+</head>
+<body>
+
+<div id="main-container" class="tk-chaparral-pro">
+	<div id="sub-container">
+		<div class="top-bar">
+			
+			<div class="menu-icon">
+				<div class="bar"> </div>
+				<div class="bar"> </div>
+				<div class="bar"> </div>
+			</div>
+			
+			<div class="travel">
+				<img style="float:right;" src="img/notificacion.png" width="40px" height="40px">
+			</div>
+			
+		</div>
+		<div id="content">
+		    </br>
+		    <center>Seleccione un trabajador</center>
+            <ul class="list" id="listview">
+            </ul>
+
+
+
+
+			</div>
+			<div class="demo-bar">
+				<center>Powered By Asotrabajo - 2016</center>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<div class="slide-in">
+	<ul class="tk-museo-sans">
+	    </br>
+	    <div class="circular"></div>
+	    <fieldset class="val-fieldset" style="margin: 0 auto;"><span class="valoracion val-40"></span></fieldset>
+	    <ul class="list" id="view"></ul>
+	    </br>
+	    </br>
+	    </br>
+		<li  onclick="window.parent.location.href='menu.html'" >Inicio</li>
+		<li  onclick="window.parent.location.href='perfilcliente.html'">Perfil</li>
+		<li onclick="window.parent.location.href='modificarperfil.html'" >Configuracion</li>
+		<li  onclick="window.parent.location.href='index.html'" >Salir</li>
+	</ul>
+</div>
+
+
+</body>
+</html>

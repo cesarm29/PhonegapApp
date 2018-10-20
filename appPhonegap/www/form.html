@@ -1,0 +1,103 @@
+<html>
+<head>
+ <link rel="stylesheet" type="text/css" href="css/ionic.css">
+ <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+ <script type="text/javascript" src="js/geturi.js"></script>
+ <script type="text/javascript">
+ $(document).ready(function(){
+ var id = decodeURI(getUrlVars()["id"]);
+ var title = decodeURI(getUrlVars()["title"]);
+ var duration = decodeURI(getUrlVars()["duration"]);
+ var price = decodeURI(getUrlVars()["price"]);
+ $("#id").val(id);
+ $("#title").val(title);
+ $("#duration").val(duration);
+ $("#price").val(price);
+ $("#update").click(function(){
+ var id=$("#id").val();
+ var title=$("#title").val();
+ var duration=$("#duration").val();
+ var price=$("#price").val();
+ var dataString="id="+id+"&title="+title+"&duration="+duration+"&price="+price+"&update=";
+ $.ajax({
+ type: "POST",
+ url:"http://192.168.1.54/phonegap/update.php",
+ data: dataString,
+ crossDomain: true,
+ cache: false,
+ beforeSend: function(){ $("#update").val('Connecting...');},
+ success: function(data){
+ if(data=="success")
+ {
+ alert("Updated");
+ $("#update").val("Update");
+ }
+ else if(data=="error")
+ {
+ alert("error");
+ }
+ }
+ });
+ 
+ });
+ $("#delete").click(function(){
+ var id=$("#id").val();
+ var dataString="id="+id+"&delete=";
+ $.ajax({
+ type: "GET",
+ url:"http://192.168.1.54/phonegap/delete.php",
+ data: dataString,
+ crossDomain: true,
+ cache: false,
+ beforeSend: function(){ $("#delete").val('Connecting...');},
+ success: function(data){
+ if(data=="success")
+ {
+ alert("Deleted");
+ $("#delete").val("Delete");
+ }
+ else if(data=="error")
+ {
+ alert("error");
+ }
+ }
+ });
+ 
+ });
+ });
+ </script>
+</head>
+<body>
+ <div class="bar bar-header bar-positive" style="margin-bottom:80px;">
+ <a href="index.html" class="button button-clear">Login</a>
+ <h1 class="title">Update Database</h1>
+ <a class="button button-clear" href="insert.html">Insertar</a>
+ <a class="button button-clear" href="readjson.html">Lista</a>
+ </div><br/><br/>
+ <div class="list">
+ <input type="hidden" id="id" value=""/>
+ <div class="item">
+ <label>Title</label>
+ <input type="text" id="title" value=""/>
+ </div>
+ <div class="item">
+ <label>Duration</label>
+ <input type="text" id="duration" value=""/>
+ </div>
+ <div class="item">
+ <label>Price</label>
+ <input type="text" id="price" value=""/>
+ </div>
+ <div class="item">
+ <button  id="update" class="button button-full button-calm" value="Update">
+  Actualizar
+</button>
+ </br>
+ <button id="delete" class="button button-full button-assertive" value="Delete">
+  Eliminar
+</button>
+ </div>
+ </div>
+ 
+</body>
+</html>

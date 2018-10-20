@@ -1,0 +1,353 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+<link rel="stylesheet" type="text/css" href="css/style-2.css" />
+<script type="text/javascript" src="//use.typekit.net/vue1oix.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+
+<title>Modificar Perfil</title>
+
+<script src="js/jquery.js"></script>
+<script src="js/hammer.js"></script>
+
+<script>
+
+$(document).ready(function(e) {
+
+
+
+	
+	var startX, curX, startY, curY; // Variables
+	var newXScroll, newYScroll, genXScroll; // More Variables!
+	
+	// Change the height of the sidebar, as well as a few things to do with the main content area, so the user
+	// can actually scroll in the content area.
+	function sideBarHeight() { 
+	
+		var docHeight = $(document).height();
+		var winHeight = $(window).height();
+		
+		$('.slide-in').height(winHeight);
+		$('#main-container').height(winHeight);
+		$('#sub-container').height($('#sub-container').height());
+	} 
+	
+	sideBarHeight();
+	
+	var outIn = 'in';
+	
+	Hammer(document.getElementById('main-container')).on('swiperight', function(e) {
+			$('.slide-in').toggleClass('on');		
+			$('#main-container').toggleClass('on');
+			outIn = 'out';
+			
+	});
+	
+	Hammer(document.getElementById('main-container')).on('swipeleft', function(e) {
+			$('.slide-in').toggleClass('on');	
+			$('#main-container').toggleClass('on');
+			outIn = 'in';
+	});
+	
+	
+	function runAnimation() {
+	
+		if(outIn == 'out') {
+			
+			$('.slide-in').toggleClass('on');
+			$('#main-container').toggleClass('on');	
+			outIn = 'in';
+			
+		} else if(outIn == 'in') {
+		
+			$('.slide-in').toggleClass('on');	
+			$('#main-container').toggleClass('on');	
+			outIn = 'out';
+			
+		}
+	
+	}
+	
+	$('.menu-icon')[0].addEventListener('touchend', function(e) {
+		$('.slide-in').toggleClass('on');		
+		$('#main-container').toggleClass('on');
+	});
+	
+	$('.menu-icon').click(function() {
+		$('.slide-in').toggleClass('on');		
+		$('#main-container').toggleClass('on');
+	});
+	
+	
+
+});
+
+</script>
+
+<script type="text/javascript">
+ $(document).ready(function()
+ {
+    //obteniendo usuario
+    var usr = localStorage.getItem("usingreso");
+
+    //pasando parametro a label
+    $("#usuarioensession").text(usr); 
+
+
+var string = "http://192.168.1.54/phonegap/jsonclientes.php?usuario=" 
+
+
+ var url= string+usr;
+ $.getJSON(url,function(result){
+ console.log(result);
+ $.each(result, function(i, field){
+ var PrimerNombre=field.PrimerNombre;
+ var PrimerApellido=field.PrimerApellido;
+ var Direccion=field.Direccion;
+ var fotoImagen=field.fotoImagen;
+ var Ciudad=field.Ciudad;
+
+ $("#view").append(" <h2 style='color: #c4d6e0;padding-left: 50px;'> "+ PrimerNombre + " "+ PrimerApellido + " </h2><h2 style='color: #c4d6e0;padding-left: 50px;'>Direccion "+ Direccion + " </h2><p style='color: #c4d6e0;padding-left: 50px;'>Ciudad "+ Ciudad +"</p>");
+ });
+ });
+ });
+ </script>
+
+
+
+
+
+<style type="text/css">
+	.circular {
+	width: 150px;
+	height: 150px;
+	 margin: 0 auto;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	background: url(img/facebook350.jpg);
+	 background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center;              /* optional, center the image */
+	}
+
+	.positive {
+    border-color: transparent;
+    background-color: #33cd5f;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    }
+    .positive1 {
+    border-color: transparent;
+    background-color: #387ef5;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    }
+    .positive2 {
+    border-color: transparent;
+    background-color: #33cd5f;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    }
+    .positive3 {
+    border-color: transparent;
+    background-color: #387ef5;
+    color: #fff;
+    width: 100%;
+    height: 60px;
+    }
+
+
+    /* Estrellas de valoración
+	----------------------------------------------- */
+	.val-fieldset {
+	width:100px;
+	border:none;
+	font-weight:bold;
+	font-size:12px;
+	}
+	.valoracion {
+	width: 100px;
+	height: 21px;
+	display: block;
+	background:url(http://lh5.googleusercontent.com/-Sp-iHFztZdc/UVD89O9oM1I/AAAAAAAAEU0/Xh-FBDaWyJY/s000/estrellas.png) 0 0 no-repeat;
+	}
+	.val-0 {background-position: -100px -0;}
+	.val-5 {background-position: -81px -21px;}
+	.val-10 {background-position: -81px 0;}
+	.val-15 {background-position: -61px -21px;}
+	.val-20 {background-position: -60px 0;}
+	.val-25 {background-position: -40px -21px;}
+	.val-30 {background-position: -40px 0;}
+	.val-35 {background-position: -21px -21px;}
+	.val-40 {background-position: -21px 0;} 
+	.val-45 {background-position: 0 -21px;}
+	.val-50 {background-position: 0 0;}
+
+
+        body {
+            margin: 0;
+        }
+ 
+        div#container {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+        }
+ 
+        div[data-role="header"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+ 
+        div[data-role="content"] {
+            position: absolute;
+            top: 41px;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+ 
+        .scrollable {
+            overflow-y: scroll;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+ 
+            /* iOS specific fix, don't use it on Android devices */
+        .scrollable > * {
+            -webkit-transform: translateZ(0px);
+        }
+
+        .ui-btn-text{
+        	        margin: 0;
+				    padding: 0;
+				    border: 0;
+				    font: inherit;
+				    font-size: 100%;
+				    color: white;
+        }
+    </style>
+ 
+    <script src="http://code.jquery.com/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript">
+        $(document).one('mobileinit', function () {
+ 
+            // Setting #container div as a jqm pageContainer
+            $.mobile.pageContainer = $('#container');
+ 
+            // Setting default page transition to slide
+            $.mobile.defaultPageTransition = 'slide';
+ 
+        });
+    </script>
+    <script src="http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.js"></script>
+
+<script language="javascript" type="text/javascript">
+function urlcategoria (){
+//obteniendo usuario
+    var usr = localStorage.getItem("usingreso");
+
+    location.href = "/readcategorias.html?usuario="+usr+"";
+}
+</script>
+</head>
+<body>
+
+<div id="main-container" class="tk-chaparral-pro">
+	<div id="sub-container">
+		<div class="top-bar">
+			
+			<div class="menu-icon">
+				<div class="bar"> </div>
+				<div class="bar"> </div>
+				<div class="bar"> </div>
+			</div>
+			
+			<div class="travel">
+				<img style="float:right;" src="img/notificacion.png" width="40px" height="40px">
+			</div>
+	
+		</div>
+		<div id="content">
+		
+		<div data-role="content" class="scrollable">
+
+
+		<div class="list">
+
+		 <label class="item item-input">
+		 <input type="text" id="nombres" placeholder="Nombres"  required="true" />
+		 </label>
+		 <label class="item item-input">
+		 <input type="text" id="apellidos" placeholder="Apellidos" required="true"/>
+		 </label>
+		 <label class="item item-input">
+		 <input type="number" id="documentoidentidad" placeholder="Numero de Documento" required="true"/>
+		 </label>
+		 <label class="item item-input">
+		 <input type="text" id="dir" placeholder="Direccion" required="true"/>
+		 </label>
+		 <label class="item item-input">
+		 <input type="text" id="telfijo" placeholder="Telefono Fijo" required="true"/>
+		 </label>
+		 <label class="item item-input">
+		 <input type="text" id="telcel" placeholder="Telefono Celular" required="true"/>
+		 </label>
+		 <label class="item item-input">
+		 <input type="text" id="correo" placeholder="Correo Electronico" required="true"/>
+		 </label>
+		 <label class="item item-input">
+		 <input type="text" id="ciudad" placeholder="Ciudad" required="true"/>
+		 </label>
+		 <label class="item item-input">
+		 <input type="text" id="contrasena" placeholder="Contraseña" required="true"/>
+		 </label>
+		 <button type="button" id="insert" class="button button-full button-positive" value="Registrarse" >Registrarse</button>
+		 </div>
+		 </div>	
+
+
+
+
+
+
+		
+
+
+		</div>
+			<div class="demo-bar">
+				<center>Powered By Asotrabajo - 2016</center>
+			</div>
+		</div>
+	</div>	
+</div>
+
+<div class="slide-in">
+	<ul class="tk-museo-sans">
+	    </br>
+	    <div class="circular"></div>
+	    <fieldset class="val-fieldset" style="margin: 0 auto;"><span class="valoracion val-40"></span></fieldset>
+	    <ul class="list" id="view"></ul>
+	    </br>
+	    </br>
+	    </br>
+		<li  onclick="window.location.href='/menu.html'" >Inicio</li>
+		<li  onclick="window.location.href='/perfilcliente.html'">Perfil</li>
+		<li>Configuracion</li>
+		<li  onclick="window.location.href='/index.html'" >Salir</li>
+	</ul>
+</div>
+
+
+</body>
+</html>
